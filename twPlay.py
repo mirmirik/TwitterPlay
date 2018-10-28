@@ -25,8 +25,8 @@ Twitter User Object detayları:
     https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object
 
 Geliştiriciler için kullanıcı ve hesap bilgilerinin kullanımı :
-    https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/overview
 
+    https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/overview
 '''
 from twitter import Twitter, OAuth, oauth_dance, read_token_file
 import os
