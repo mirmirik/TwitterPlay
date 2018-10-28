@@ -1,7 +1,7 @@
 # TwitterPlay
 
 Twitter API'sine bağlanıp, takipçi ve takip edilenler listesini almak için yazılmış deneme / sandbox kodu.
-myTwitter.cfg dosyası içine ilgili değerleri ekleyip, komut satırından "python twPlay.py" yazarak çalıştırılabilir.
+myTwitter.cfg dosyası içine ilgili değerleri ekleyip, komut satırından `python twPlay.py` yazarak çalıştırılabilir.
 
 Konfigürasyon dosyası değerleri:
     
