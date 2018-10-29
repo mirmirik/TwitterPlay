@@ -36,7 +36,7 @@ import urllib.parse
 import configparser
 
 IN_DEBUG_MODE: bool = True
-GET_FOLLOWERS: bool = False
+GET_FOLLOWERS: bool = True
 
 cfg = configparser.ConfigParser()
 cfg.read("myTwitter.cfg")
@@ -71,7 +71,7 @@ print("{:25s} {:25s} {:25s} {:25s} {:25s} {:25s}".format(
     "Screen Name", "Name", "ID", "Last Interaction", "Follower-Friend", "Protected"))
 print("---------------------------------------------------------------------------------------------------------------------------------------------")
 
-fn.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}".format("screen_name",
+fn.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}".format("screen_name",
                                                 "name",
                                                 "id_str",
                                                 "followers_count", 
