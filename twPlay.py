@@ -38,7 +38,6 @@ import configparser
 IN_DEBUG_MODE: bool = True
 GET_FOLLOWERS: bool = False
 
-
 cfg = configparser.ConfigParser()
 cfg.read("myTwitter.cfg")
 
@@ -68,8 +67,8 @@ fileName = "data/" + cfg.get('runtime', 'FOLLOWER_FILE') if GET_FOLLOWERS else "
 fl = open("data/raw_data.json", "w+")
 fn = open(fileName, "w+")
 
-print("{:25s} {:25s} {:25s} {:25s} {:25s}".format(
-    "Screen Name", "Name", "ID", "Last Interaction", "Protected"))
+print("{:25s} {:25s} {:25s} {:25s} {:25s} {:25s}".format(
+    "Screen Name", "Name", "ID", "Last Interaction", "Follower-Friend", "Protected"))
 print("---------------------------------------------------------------------------------------------------------------------------------------------")
 
 fn.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}".format("screen_name",
@@ -77,6 +76,7 @@ fn.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}".format("screen_name",
                                                 "id_str",
                                                 "followers_count", 
                                                 "friends_count",
+                                                "flwr_frnds",
                                                 "last_interaction",
                                                 "protected") + "\n")
 
@@ -88,6 +88,7 @@ while activeCursor != 0:
     for usr in f["users"]:
         try:
             if (usr["status"]):
+                # status alınamıyorsa, kullanıcı "kilitli" hesaba sahiptir.
                 # TW standart tarih formatı: Sat Aug 11 12:51:00 +0000 2018
                 _tempDate = usr["status"]["created_at"]
                 dtObj = datetime.strptime(_tempDate, '%a %b %d %H:%M:%S %z %Y')
@@ -103,15 +104,21 @@ while activeCursor != 0:
         except KeyError as ke:
             _lastInteraction = "Not found"
 
-        print("{:25s} {:25s} {:25s} {:25s}".format(
-            usr["screen_name"], usr["name"], usr["id_str"], _lastInteraction))
+        try:
+            _follower_friend_ratio = usr["followers_count"] / usr["friends_count"] 
+        except:
+            _follower_friend_ratio = usr["followers_count"]
+
+        print("{:25s} {:25s} {:25s} {:25s} {:25s}".format(
+            usr["screen_name"], usr["name"], usr["id_str"], str(_follower_friend_ratio), _lastInteraction))
         
-        fn.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}".format(
+        fn.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}".format(
             usr["screen_name"], 
             usr["name"], 
             usr["id_str"], 
             usr["followers_count"], 
             usr["friends_count"], 
+            _follower_friend_ratio,
             _lastInteraction, 
             usr["protected"]) + "\n")
 

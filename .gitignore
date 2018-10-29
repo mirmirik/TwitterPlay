@@ -3,6 +3,7 @@ myTwitter.cfg
 data/
 .idea/
 .vscode/
+*_mirmirik
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
