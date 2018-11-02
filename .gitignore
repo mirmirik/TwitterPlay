@@ -4,6 +4,8 @@ data/
 .idea/
 .vscode/
 *_mirmirik
+data/*.json
+data/*.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
