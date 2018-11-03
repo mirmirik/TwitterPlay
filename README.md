@@ -36,8 +36,11 @@ Geliştiriciler için kullanıcı ve hesap bilgilerinin kullanımı :
 
 https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/overview
 
-pyMyStats kodunda kullanılan API Reference (friendship-lookup):
+pyMyStats kodunda kullanılan API Reference (friendship-lookup, folllowers-ids, friends-ids):
 
-https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/api-reference/get-friendships-lookup
+    https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/api-reference/get-friends-ids
+    https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/api-reference/get-followers-ids
+    https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/api-reference/get-friendships-lookup
+
 
 Author: Tolga MIRMIRIK (@mirmirik)
