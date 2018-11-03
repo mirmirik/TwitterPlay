@@ -1,1 +1,0 @@
-screen_name	name	id_str	followers_count	friends_count	flwr_frnds	last_interaction
