@@ -1,11 +1,12 @@
 # Local files
 myTwitter.cfg
-data/
+data/*.*
 .idea/
 .vscode/
 *_mirmirik
 data/*.json
 data/*.txt
+.tw_credentials*
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
