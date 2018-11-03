@@ -13,6 +13,7 @@ Konfigürasyon dosyası değerleri:
     [runtime]
     FOLLOWER_FILE = Takipçilerin bilgilerinin yazılacağı text dosya ismi. DATA dizini içinde yaratılır. Tab delimeted dosya oluşturur.
     FOLLOWING_FILE = Takip edilenlerin bilgilerinin yazılacağı text dosya ismi. DATA dizini içinde yaratılır. Tab delimeted dosya oluşturur.
+    SEARCH_FILE = <Arama sonucu bulunan tweetlerin çıktısının yazıldığı dosya adı.>
 
 IN_DEBUG_MODE = True ise,
     tüm ilgili kullanıcı nesnesine ait bilgiler "raw_data.json" isimli dosyaya da JSON formatında yazılır. Buradaki alanlar incelenip ihtiyca göre kullanıcılara ait farklı bilgilere de erişim sağlanabilir.
