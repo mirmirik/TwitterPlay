@@ -10,10 +10,6 @@ Konfigürasyon dosyası değerleri:
     CONSUMER_KEY = <Twitter Development / APPS kısmından alınacak olacan CONSUMER KEY>
     CONSUMER_SECRET = <Twitter Development / APPS kısmından alınacak olacan CONSUMER SECRET>
 
-    [runtime]
-    FOLLOWER_FILE = Takipçilerin bilgilerinin yazılacağı text dosya ismi. DATA dizini içinde yaratılır. Tab delimeted dosya oluşturur.
-    FOLLOWING_FILE = Takip edilenlerin bilgilerinin yazılacağı text dosya ismi. DATA dizini içinde yaratılır. Tab delimeted dosya oluşturur.
-
 IN_DEBUG_MODE = True ise, 
     tüm ilgili kullanıcı nesnesine ait bilgiler "raw_data.json" isimli dosyaya da JSON formatında yazılır. Buradaki alanlar incelenip göre
     kullanıcılara ait farklı bilgilere de erişim sağlanabilir.
@@ -25,9 +21,9 @@ Twitter User Object detayları:
     https://developer.twitter.com/en/docs/tweets/data-dictionary/overview/user-object
 
 Geliştiriciler için kullanıcı ve hesap bilgilerinin kullanımı :
-
     https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/overview
 '''
+
 from twitter import Twitter, OAuth, oauth_dance, read_token_file
 import os
 import json
@@ -35,7 +31,7 @@ from datetime import datetime
 import urllib.parse
 import configparser
 
-IN_DEBUG_MODE: bool = True
+IN_DEBUG_MODE: bool = False
 GET_FOLLOWERS: bool = True
 
 cfg = configparser.ConfigParser()
@@ -45,6 +41,11 @@ TW_ACCOUNT = cfg.get('auth', 'ACCOUNT')
 CONSUMER_KEY = cfg.get('auth', 'CONSUMER_KEY')
 CONSUMER_SECRET = cfg.get('auth', 'CONSUMER_SECRET')
 MY_TWITTER_CREDS = os.path.expanduser('.tw_credentials_' + TW_ACCOUNT)
+
+TODAY_FORMATTED = datetime.today().strftime('%Y%m%d')
+
+if not os.path.exists("data"):
+    os.makedirs("data")
 
 if not os.path.exists(MY_TWITTER_CREDS):
     oauth_dance("TW_App", 
@@ -62,7 +63,7 @@ tw = Twitter(auth=OAuth(
 
 activeCursor = -1
 
-fileName = "data/" + cfg.get('runtime', 'FOLLOWER_FILE') if GET_FOLLOWERS else "data/" + cfg.get('runtime', 'FOLLOWING_FILE')
+fileName = "data/follower_" + TODAY_FORMATTED + ".txt" if GET_FOLLOWERS else "data/following_" + TODAY_FORMATTED + ".txt"
 
 fl = open("data/raw_data.json", "w+")
 fn = open(fileName, "w+")

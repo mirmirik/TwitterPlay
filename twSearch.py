@@ -1,6 +1,27 @@
 '''
-https://github.com/sixohsix/twitter
+Author: Tolga MIRMIRIK (@mirmirik)
+
+Twitter API'sine bağlanıp, dış parametrelere göre tweeter içinde arama yapmak için yazılmış deneme / sandbox kodu.
+myTwitter.cfg dosyası içine ilgili değerleri ekleyip, komut satırından "python twSearch.py -s <kelime>" yazarak çalıştırılabilir.
+
+Parametreler:
+    -s, --search    : Arama yapılacak text
+    -r, --replyTo   : <kaldırılacak>, bir tweet'e cevap verilecekse, o tweet'in ID'si
+    -t, --text      : <kaldırılacak>, Tweet reply olacaksa, verilecn cevap text'i.
+
+Konfigürasyon dosyası değerleri:
+    [auth]
+    ACCOUNT = <bilgilerine erişilecek size ait hesap adı>
+    CONSUMER_KEY = <Twitter Development / APPS kısmından alınacak olacan CONSUMER KEY>
+    CONSUMER_SECRET = <Twitter Development / APPS kısmından alınacak olacan CONSUMER SECRET>
+
+Twitter API'ye erişim sağlayan wrapper library:
+    https://github.com/sixohsix/twitter
+
+Twitter Search detayları:
+    https://developer.twitter.com/en/docs/tweets/search/overview
 '''
+
 import argparse
 import sys
 from twitter import Twitter, OAuth, oauth_dance, read_token_file
@@ -20,9 +41,12 @@ TW_ACCOUNT = cfg.get('auth', 'ACCOUNT')
 CONSUMER_KEY = cfg.get('auth', 'CONSUMER_KEY')
 CONSUMER_SECRET = cfg.get('auth', 'CONSUMER_SECRET')
 
-SEARCH_RESULTS_FILE = cfg.get('runtime', 'SEARCH_FILE')
+SEARCH_RESULTS_FILE = "data/search_" + datetime.today().strftime('%Y%m%d') + ".txt"
 
 MY_TWITTER_CREDS = os.path.expanduser('.tw_credentials_' + TW_ACCOUNT)
+
+if not os.path.exists("data"):
+    os.makedirs("data")
 
 if not os.path.exists(MY_TWITTER_CREDS):
     oauth_dance("TW_App", 
@@ -33,22 +57,22 @@ if not os.path.exists(MY_TWITTER_CREDS):
 oauth_token, oauth_secret = read_token_file(MY_TWITTER_CREDS)
 
 
-def replyto_tweet(replyto, tweettext):
-    """ID'si verilen tweet'e tweettext parametresi ile verilen yazıyı 'reply' olarak ekler.
+# def replyto_tweet(replyto, tweettext):
+#     """ID'si verilen tweet'e tweettext parametresi ile verilen yazıyı 'reply' olarak ekler.
 
-    Parametreler:
-        - replyto -- Cevap verilecek tweet'in ID'si
-        - tweettext -- Verilecek cevap yazısız
-    """
-    tw = Twitter(auth=OAuth(
-                oauth_token, 
-                oauth_secret, 
-                CONSUMER_KEY, 
-                CONSUMER_SECRET))
+#     Parametreler:
+#         - replyto -- Cevap verilecek tweet'in ID'si
+#         - tweettext -- Verilecek cevap yazısız
+#     """
+#     tw = Twitter(auth=OAuth(
+#                 oauth_token, 
+#                 oauth_secret, 
+#                 CONSUMER_KEY, 
+#                 CONSUMER_SECRET))
 
 
-    tw.statuses.update(status=tweettext,
-                       in_reply_to_status_id=replyto)
+#     tw.statuses.update(status=tweettext,
+#                        in_reply_to_status_id=replyto)
 
 
 def search_twitter(searchparameter):
@@ -69,7 +93,7 @@ def search_twitter(searchparameter):
 
 
     if IN_DEBUG_MODE:
-        fn = open("data/" + SEARCH_RESULTS_FILE, "w+")
+        fn = open(SEARCH_RESULTS_FILE, "w+")
 
     print("Search String: {0}".format(searchThis) + "\n")
 
@@ -119,21 +143,21 @@ def main():
                         help="Search string to be used in application",
                         metavar="search text")
 
-    parser.add_argument("-r", "--replyto",
-                        dest="REPLY_TO",
-                        help="Tweet id of the tweet that will be replied",
-                        metavar="replyto Id")
+    # parser.add_argument("-r", "--replyto",
+    #                     dest="REPLY_TO",
+    #                     help="Tweet id of the tweet that will be replied",
+    #                     metavar="replyto Id")
 
-    parser.add_argument("-t", "--text",
-                        dest="REPLY_TEXT",
-                        help="Tweet that will be sent",
-                        metavar="tweet text")
+    # parser.add_argument("-t", "--text",
+    #                     dest="REPLY_TEXT",
+    #                     help="Tweet that will be sent",
+    #                     metavar="tweet text")
 
     args = parser.parse_args()
     if args.SEARCH_STRING:
         search_twitter(args.SEARCH_STRING)
-    elif args.REPLY_TO:
-        replyto_tweet(args.REPLY_TO, args.REPLY_TEXT)
+    # elif args.REPLY_TO:
+    #     replyto_tweet(args.REPLY_TO, args.REPLY_TEXT)
 
 
 if __name__ == "__main__":
