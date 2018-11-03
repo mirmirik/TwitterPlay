@@ -15,6 +15,7 @@ IN_DEBUG_MODE = True ise,
     tüm ilgili kullanıcı nesnesine ait bilgiler twPlay.py çalıştırıldığında "raw_data.json" isimli dosyaya da JSON formatında yazılır. Buradaki alanlar incelenip ihtiyca göre kullanıcılara ait farklı bilgilere de erişim sağlanabilir.
 
 Çıktı dosyaları:
+
     followers_YYYYMMDD.txt  -> Takip edenler    (twPlay.py)
     following_YYYYMMDD.txt  -> Takip edilenler  (twPlay.py)
     myStats_YYYYMMDD.txt    -> İstatistikler    (twMyStats.py)
