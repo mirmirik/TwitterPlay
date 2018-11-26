@@ -24,42 +24,14 @@ Geliştiriciler için kullanıcı ve hesap bilgilerinin kullanımı :
     https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/overview
 '''
 
-from twitter import Twitter, OAuth, oauth_dance, read_token_file
-import os
-import json
+import twStart
 from datetime import datetime
-import urllib.parse
-import configparser
+import json
 
 IN_DEBUG_MODE: bool = False
-GET_FOLLOWERS: bool = True
-
-cfg = configparser.ConfigParser()
-cfg.read("myTwitter.cfg")
-
-TW_ACCOUNT = cfg.get('auth', 'ACCOUNT')
-CONSUMER_KEY = cfg.get('auth', 'CONSUMER_KEY')
-CONSUMER_SECRET = cfg.get('auth', 'CONSUMER_SECRET')
-MY_TWITTER_CREDS = os.path.expanduser('.tw_credentials_' + TW_ACCOUNT)
+GET_FOLLOWERS: bool = False
 
 TODAY_FORMATTED = datetime.today().strftime('%Y%m%d')
-
-if not os.path.exists("data"):
-    os.makedirs("data")
-
-if not os.path.exists(MY_TWITTER_CREDS):
-    oauth_dance("TW_App", 
-                CONSUMER_KEY, 
-                CONSUMER_SECRET,
-                MY_TWITTER_CREDS)
-
-oauth_token, oauth_secret = read_token_file(MY_TWITTER_CREDS)
-
-tw = Twitter(auth=OAuth(
-                oauth_token, 
-                oauth_secret, 
-                CONSUMER_KEY, 
-                CONSUMER_SECRET))
 
 activeCursor = -1
 
@@ -80,6 +52,8 @@ fn.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}".format("screen_name",
                                                 "flwr_frnds",
                                                 "last_interaction",
                                                 "protected") + "\n")
+
+tw = twStart.hitTwitter()
 
 while activeCursor != 0:
 
