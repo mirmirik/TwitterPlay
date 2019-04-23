@@ -33,74 +33,94 @@ GET_FOLLOWERS: bool = False
 
 TODAY_FORMATTED = datetime.today().strftime('%Y%m%d')
 
-activeCursor = -1
+def getTwitterData():
+    activeCursor = -1
 
-fileName = "data/follower_" + TODAY_FORMATTED + ".txt" if GET_FOLLOWERS else "data/following_" + TODAY_FORMATTED + ".txt"
+    fileName = "data/follower_" + TODAY_FORMATTED + ".txt" if GET_FOLLOWERS else "data/following_" + TODAY_FORMATTED + ".txt"
 
-fl = open("data/raw_data.json", "w+")
-fn = open(fileName, "w+")
+    fl = open("data/raw_data.json", "w+")
+    fn = open(fileName, "w+")
 
-print("{:25s} {:25s} {:25s} {:25s} {:25s} {:25s}".format(
-    "Screen Name", "Name", "ID", "Last Interaction", "Follower-Friend", "Protected"))
-print("---------------------------------------------------------------------------------------------------------------------------------------------")
+    print("{:25s} {:25s} {:25s} {:25s} {:25s} {:25s} {:25s}".format(
+        "Screen Name", "Name", "ID", "Follower-Friend", "Last Interaction", "Account Created", "Protected"))
+    print("---------------------------------------------------------------------------------------------------------------------------------------------")
 
-fn.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}".format("screen_name",
-                                                "name",
-                                                "id_str",
-                                                "followers_count", 
-                                                "friends_count",
-                                                "flwr_frnds",
-                                                "last_interaction",
-                                                "protected") + "\n")
+    fn.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}".format("screen_name",
+                                                    "name",
+                                                    "id_str",
+                                                    "followers_count", 
+                                                    "friends_count",
+                                                    "flwr_frnds",
+                                                    "last_interaction",
+                                                    "acc_created",
+                                                    "protected") + "\n")
 
-tw = twStart.hitTwitter()
+    tw = twStart.hitTwitter()
 
-while activeCursor != 0:
+    while activeCursor != 0:
 
-    f = tw.followers.list(cursor=activeCursor, count=200) if GET_FOLLOWERS else tw.friends.list(cursor=activeCursor, count=200)
+        f = tw.followers.list(cursor=activeCursor, count=500) if GET_FOLLOWERS else tw.friends.list(cursor=activeCursor, count=200)
 
-    _lastInteraction = ""
-    for usr in f["users"]:
-        try:
-            if (usr["status"]):
-                # status alınamıyorsa, kullanıcı "kilitli" hesaba sahiptir.
-                # TW standart tarih formatı: Sat Aug 11 12:51:00 +0000 2018
-                _tempDate = usr["status"]["created_at"]
-                dtObj = datetime.strptime(_tempDate, '%a %b %d %H:%M:%S %z %Y')
-                _lastInteraction = "{2}{1}{0}".format(
-                    str(dtObj.day).zfill(2), 
-                    str(dtObj.month).zfill(2), 
-                    str(dtObj.year))
+        _lastInteraction = ""
+        for usr in f["users"]:
+            try:
+                if (usr["status"]):
+                    # status alınamıyorsa, kullanıcı "kilitli" hesaba sahiptir.
+                    # TW standart tarih formatı: Sat Aug 11 12:51:00 +0000 2018
+                    _tempDate = usr["status"]["created_at"]
+                    dtObj = datetime.strptime(_tempDate, '%a %b %d %H:%M:%S %z %Y')
+                    _lastInteraction = "{2}{1}{0}".format(
+                        str(dtObj.day).zfill(2), 
+                        str(dtObj.month).zfill(2), 
+                        str(dtObj.year))
+                    
+                    dtObj = datetime.strptime(usr["created_at"], '%a %b %d %H:%M:%S %z %Y')
+                    _accountCreated = "{2}{1}{0}".format(
+                        str(dtObj.day).zfill(2), 
+                        str(dtObj.month).zfill(2), 
+                        str(dtObj.year))
 
-                # En son 2018 / 6. aydan önce tweet atmışları takipten çıkaralım.
-                # if (dtObj.year = 2018 && dtObj.month < 6 ):
-                #    tw.friendships.destroy(user_id=usr["id_str"])
 
-        except KeyError as ke:
-            _lastInteraction = "Not found"
+                    # En son 2018 / 6. aydan önce tweet atmışları takipten çıkaralım.
+                    # if (dtObj.year = 2018 && dtObj.month < 6 ):
+                    #    tw.friendships.destroy(user_id=usr["id_str"])
 
-        try:
-            _follower_friend_ratio = usr["followers_count"] / usr["friends_count"] 
-        except:
-            _follower_friend_ratio = usr["followers_count"]
+            except KeyError as ke:
+                _lastInteraction = "Not found"
 
-        print("{:25s} {:25s} {:25s} {:25s} {:25s}".format(
-            usr["screen_name"], usr["name"], usr["id_str"], str(_follower_friend_ratio), _lastInteraction))
-        
-        fn.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}".format(
-            usr["screen_name"], 
-            usr["name"], 
-            usr["id_str"], 
-            usr["followers_count"], 
-            usr["friends_count"], 
-            _follower_friend_ratio,
-            _lastInteraction, 
-            usr["protected"]) + "\n")
+            try:
+                _follower_friend_ratio = usr["followers_count"] / usr["friends_count"] 
+            except:
+                _follower_friend_ratio = usr["followers_count"]
 
-    activeCursor = f["next_cursor"]
-    if IN_DEBUG_MODE:
-        jsDump = json.dumps(f, indent=4, sort_keys=False)
-        fl.write(jsDump)
+            print("{:25s} {:25s} {:25s} {:25s} {:25s} {:25s} {:25s}".format(
+                usr["screen_name"], 
+                usr["name"], 
+                usr["id_str"], 
+                str(_follower_friend_ratio), 
+                _lastInteraction, 
+                _accountCreated, 
+                str(usr["protected"])))
+            
+            fn.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}".format(
+                usr["screen_name"], 
+                usr["name"], 
+                usr["id_str"], 
+                usr["followers_count"], 
+                usr["friends_count"], 
+                _follower_friend_ratio,
+                _lastInteraction, 
+                _accountCreated,
+                str(usr["protected"]) + "\n"))
 
-fl.close()
-fn.close()
+        activeCursor = f["next_cursor"]
+        if IN_DEBUG_MODE:
+            jsDump = json.dumps(f, indent=4, sort_keys=False)
+            fl.write(jsDump)
+
+    fl.close()
+    fn.close()
+
+
+if __name__ == "__main__": 
+    getTwitterData()
