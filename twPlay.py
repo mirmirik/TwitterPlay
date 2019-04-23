@@ -81,9 +81,9 @@ def getTwitterData():
                         str(dtObj.year))
 
 
-                    # En son 2018 / 6. aydan önce tweet atmışları takipten çıkaralım.
-                    # if (dtObj.year = 2018 && dtObj.month < 6 ):
-                    #    tw.friendships.destroy(user_id=usr["id_str"])
+                    # En son 2018'de tweet atmışları takipten çıkaralım.
+                    if (dtObj.year == 2018):
+                        tw.friendships.destroy(user_id=usr["id_str"])
 
             except KeyError as ke:
                 _lastInteraction = "Not found"
