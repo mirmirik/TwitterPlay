@@ -94,7 +94,7 @@ def blockRetweeters(TweetId, IsSilent):
             return
         if (remove == "U"):
             for usrId in f["ids"]:
-                print("Muted: {0}".format(usrId))
+                print("Unfollowed: {0}".format(usrId))
                 # TODO: Kulanıcı takipten çıkarma kodu buraya gelecek
                 # Şu kod iş görüyor olmalı: tw.friendships.destroy(user_id=usrId)
             print("All unfollowed :)")

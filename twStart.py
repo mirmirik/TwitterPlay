@@ -34,3 +34,7 @@ def hitTwitter():
                     CONSUMER_SECRET))
     
     return tw
+
+def UserDetails(tw, uid):
+    u = tw.users.show(user_id=uid)
+    return u
