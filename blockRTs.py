@@ -2,7 +2,7 @@
 Author: Tolga MIRMIRIK (@mirmirik)
 
 Twitter API'sine bağlanıp, belirli bir tweet'i RT edenleri takipten çıkarmak ya da bloklamak için yazılmış deneme / sandbox kodu.
-myTwitter.cfg dosyası içine ilgili değerleri ekleyip, komut satırından "python twPlay.py" yazarak çalıştırılabilir.
+myTwitter.cfg dosyası içine ilgili değerlerin eklenmesi gerekmektedir.
 
 Konfigürasyon dosyası değerleri:
     [auth]
@@ -14,7 +14,9 @@ IN_DEBUG_MODE = True ise,
     Bloklanan ya da takipten çıkarılan kullanıcıların bilgilerini data/ dizini altındaki dosyaya yazar
 
 Komut satırından çalıştırma:
-    python blockRTs.py -t <Tweet ID> -s <True / False>
+    python blockRTs.py 
+        -t <Tweet ID>       : RT'lenen tweet'in ID'si (tweet'i browser'da açıp adres satırındaki numarayı kullanabilirsiniz)
+        -s <True / False>   : Eğer "-s True" olarak kullanırsanız, blok, mute ya da unfollow işlemi için onayınızı sormaz. Direkt yapar.
 
 Twitter API'ye erişim sağlayan wrapper library:
     https://github.com/sixohsix/twitter
@@ -35,6 +37,23 @@ import argparse
 
 IN_DEBUG_MODE: bool = False
 TODAY_FORMATTED = datetime.today().strftime('%Y%m%d')
+
+def BUM(tw, user, action):
+    if(action == "B"):
+        print("Blocked: {0}".format(user))
+        # TODO: Kulanıcı bloklama kodu buraya gelecek
+        # Şu kod iş görüyor olmalı: tw.blocks.create(user_id=usrId, skip_status=1, include_entities=False)
+        return
+    elif (action == "M"):
+        print("Muted: {0}".format(user))
+        # TODO: Kulanıcıyı sessize alma kodu buraya gelecek
+        # Şu kod iş görüyor olmalı: tw.users.mutes(user_id=usrId)
+        return
+    elif(action == "U"):
+        print("Unfollowed: {0}".format(user))
+        # TODO: Kulanıcı takipten çıkarma kodu buraya gelecek
+        # Şu kod iş görüyor olmalı: tw.friendships.destroy(user_id=usrId)
+    return
 
 def blockRetweeters(TweetId, IsSilent):
     activeCursor = -1
@@ -66,8 +85,10 @@ def blockRetweeters(TweetId, IsSilent):
                 fn.write("{0}\t{1}".format(usrId, users[i]["screen_name"]) + "\n")
             i+=1
         activeCursor = f["next_cursor"]
+
     if(IN_DEBUG_MODE):
         fn.close()
+        
     print("------------------------------------------------------------------------------------------------")
     print("What do you want to do with all these users?")
     remove = input("[B]lock / [U]nfollow / [M]ute / [E]xit: ")
@@ -78,28 +99,11 @@ def blockRetweeters(TweetId, IsSilent):
         RUsure = "Y"
 
     if(RUsure=="Y"):
-        if (remove == "B"):
-            for usrId in f["ids"]:
-                print("Blocked: {0}".format(usrId))
-                # TODO: Kulanıcı bloklama kodu buraya gelecek
-                # Şu kod iş görüyor olmalı: tw.blocks.create(user_id=usrId, skip_status=1, include_entities=False)
-            print("All blocked :)")
-            return
-        if (remove == "M"):
-            for usrId in f["ids"]:
-                print("Muted: {0}".format(usrId))
-                # TODO: Kulanıcıyı sessize alma kodu buraya gelecek
-                # Şu kod iş görüyor olmalı: tw.users.mutes(user_id=usrId)
-            print("All muted :)")
-            return
-        if (remove == "U"):
-            for usrId in f["ids"]:
-                print("Unfollowed: {0}".format(usrId))
-                # TODO: Kulanıcı takipten çıkarma kodu buraya gelecek
-                # Şu kod iş görüyor olmalı: tw.friendships.destroy(user_id=usrId)
-            print("All unfollowed :)")
-            return
-    
+        for usrId in f["ids"]:
+            BUM(tw, usrId, remove)
+        print ("All done! Happy tweeting :) ")
+        return
+
     print("Nothing to do here!")
 
 def main():
