@@ -13,6 +13,9 @@ Konfigürasyon dosyası değerleri:
 IN_DEBUG_MODE = True ise, 
     Bloklanan ya da takipten çıkarılan kullanıcıların bilgilerini data/ dizini altındaki dosyaya yazar
 
+Eğer bu koddan etkilenmesini istemediğiniz kullanıcılar varsa, onların user_id'lerini, twStart.py içindeki WhiteListUsers()
+    listesine eklemeniz gerekiyor.
+
 Komut satırından çalıştırma:
     python blockRTs.py 
         -t <Tweet ID>       : RT'lenen tweet'in ID'si (tweet'i browser'da açıp adres satırındaki numarayı kullanabilirsiniz)
@@ -39,6 +42,9 @@ IN_DEBUG_MODE: bool = False
 TODAY_FORMATTED = datetime.today().strftime('%Y%m%d')
 
 def BUM(tw, user, action):
+    if (user in twStart.WhiteListUsers()):
+        return
+
     if(action == "B"):
         print("Blocked: {0}".format(user))
         # TODO: Kulanıcı bloklama kodu buraya gelecek
@@ -88,7 +94,7 @@ def blockRetweeters(TweetId, IsSilent):
 
     if(IN_DEBUG_MODE):
         fn.close()
-        
+
     print("------------------------------------------------------------------------------------------------")
     print("What do you want to do with all these users?")
     remove = input("[B]lock / [U]nfollow / [M]ute / [E]xit: ")

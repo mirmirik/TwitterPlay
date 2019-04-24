@@ -6,6 +6,9 @@ import configparser
 
 IN_DEBUG_MODE: bool = True
 
+def WhiteListUsers():
+    return ['114742002', '123456789']
+
 def hitTwitter():
     cfg = configparser.ConfigParser()
     cfg.read("myTwitter.cfg")
