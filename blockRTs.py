@@ -37,6 +37,7 @@ Geliştiriciler için kullanıcı ve hesap bilgilerinin kullanımı :
 import twStart
 from datetime import datetime
 import argparse
+from colorama import Fore, Back, Style, init
 
 IN_DEBUG_MODE: bool = False
 TODAY_FORMATTED = datetime.today().strftime('%Y%m%d')
@@ -47,18 +48,21 @@ def BUM(tw, user, action):
 
     if(action == "B"):
         print("Blocked: {0}".format(user))
-        # TODO: Kulanıcı bloklama kodu buraya gelecek
-        # Şu kod iş görüyor olmalı: tw.blocks.create(user_id=usrId, skip_status=1, include_entities=False)
+        # TODO: Kulanıcı bloklama kodu açılmalı
+        # İşler hale gelmesi için aşağıdaki satırı açmalısınız
+        # tw.blocks.create(user_id=usrId, skip_status=1, include_entities=False)
         return
     elif (action == "M"):
         print("Muted: {0}".format(user))
-        # TODO: Kulanıcıyı sessize alma kodu buraya gelecek
-        # Şu kod iş görüyor olmalı: tw.users.mutes(user_id=usrId)
+        # TODO: Kulanıcıyı sessize alma kodu açılmalı
+        # İşler hale gelmesi için aşağıdaki satırı açmalısınız
+        # tw.users.mutes(user_id=usrId)
         return
     elif(action == "U"):
         print("Unfollowed: {0}".format(user))
-        # TODO: Kulanıcı takipten çıkarma kodu buraya gelecek
-        # Şu kod iş görüyor olmalı: tw.friendships.destroy(user_id=usrId)
+        # TODO: Kulanıcı takipten çıkarma kodu açılmalı
+        # İşler hale gelmesi için aşağıdaki satırı açmalısınız
+        # tw.friendships.destroy(user_id=usrId)
     return
 
 def blockRetweeters(TweetId, IsSilent):
@@ -86,7 +90,8 @@ def blockRetweeters(TweetId, IsSilent):
         i = 0
 
         for usrId in f["ids"]:
-            print("{:25s} {:25s}".format(usrId, users[i]["screen_name"]))
+            color = Fore.RED if usrId in twStart.WhiteListUsers() else Fore.GREEN
+            print(Style.BRIGHT + color + "{:25s} {:25s}".format(usrId, users[i]["screen_name"]))
             if(IN_DEBUG_MODE):
                 fn.write("{0}\t{1}".format(usrId, users[i]["screen_name"]) + "\n")
             i+=1
@@ -129,4 +134,5 @@ def main():
         print("Please use -t parameter to define TweetId")
 
 if __name__ == "__main__":
+    init(autoreset=True)
     main()
