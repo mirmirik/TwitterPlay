@@ -18,7 +18,10 @@ IN_DEBUG_MODE = True ise,
 
     followers_YYYYMMDD.txt  -> Takip edenler    (twPlay.py)
     following_YYYYMMDD.txt  -> Takip edilenler  (twPlay.py)
-    myStats_YYYYMMDD.txt    -> İstatistikler    (twMyStats.py)
+    RTBlocked_YYYYMMDD.txt  -> Bloklanmaya aday olanlar  (blockRTs.py)
+
+    Sonraki sürümlerde planlanan
+    myStats_YYYYMMDD.txt    -> İstatistikler    (twMyStats.py) 
 
 Python öğrenim için kaynak:
 
