@@ -36,9 +36,9 @@ TODAY_FORMATTED = datetime.today().strftime('%Y%m%d')
 def getTwitterData():
     activeCursor = -1
 
-    fileName = "data/follower_" + TODAY_FORMATTED + ".txt" if GET_FOLLOWERS else "data/following_" + TODAY_FORMATTED + ".txt"
+    fileName = "../data/follower_" + TODAY_FORMATTED + ".txt" if GET_FOLLOWERS else "../data/following_" + TODAY_FORMATTED + ".txt"
 
-    fl = open("data/raw_data.json", "w+")
+    fl = open("../data/raw_data.json", "w+")
     fn = open(fileName, "w+")
 
     print("{:25s} {:25s} {:25s} {:25s} {:25s} {:25s} {:25s}".format(

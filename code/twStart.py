@@ -11,12 +11,12 @@ def WhiteListUsers():
 
 def hitTwitter():
     cfg = configparser.ConfigParser()
-    cfg.read("myTwitter.cfg")
+    cfg.read("../config/myTwitter.cfg")
 
     TW_ACCOUNT = cfg.get('auth', 'ACCOUNT')
     CONSUMER_KEY = cfg.get('auth', 'CONSUMER_KEY')
     CONSUMER_SECRET = cfg.get('auth', 'CONSUMER_SECRET')
-    MY_TWITTER_CREDS = os.path.expanduser('.tw_credentials_' + TW_ACCOUNT)
+    MY_TWITTER_CREDS = os.path.expanduser('../config/.tw_credentials_' + TW_ACCOUNT)
 
     if not os.path.exists("data"):
         os.makedirs("data")
