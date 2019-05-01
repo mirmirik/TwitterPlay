@@ -2,6 +2,7 @@
 myTwitter.cfg
 data/*.*
 .idea/*.*
+.idea/
 .vscode/
 *_mirmirik
 data/*.json
