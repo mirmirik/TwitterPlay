@@ -84,7 +84,7 @@ def getTwitterData():
                         str(dtObj.month).zfill(2), 
                         str(dtObj.year))
 
-            except KeyError as ke:
+            except:
                 _lastInteraction = "Not found"
 
             try:

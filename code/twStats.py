@@ -58,17 +58,10 @@ myStats = {
     "mysterious_followers_that_i_dont_follow": 0
 }
 
-# myStats["followers"] += 1
-# print("{:25s} {:25s} {:25s} {:25s} {:25s} {:25s} {:25s} {:25s}".format("Name", "Connections", "followin", "requested", "followed_by", "none", "blocking", "muting")
-# print("---------------------------------------------------------------------------------------------------------------------------------------------")
-
 print("{:25s} {:25s} {:25s} {:25s} {:25s} {:25s}".format(
     "Name", "Muted", "IFollow", "TheyFollow", "Both", "Hidden"))
 print("---------------------------------------------------------------------------------------------------------------------------------------------")
 
-
-
-# friendShips = f = tw.friendships.lookup(screen_name="tevfik_uyar")
 ntw = twStart.hitTwitter()
 follower_ids = ntw.followers.ids(screen_name="mirmirik")
 all_ids = follower_ids["ids"]
