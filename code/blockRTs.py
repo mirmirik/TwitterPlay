@@ -101,7 +101,7 @@ def blockRetweeters(TweetId, IsSilent):
         fn.close()
 
     print("------------------------------------------------------------------------------------------------")
-    print("What do you want to do with all these users?")
+    print("What do you want to do with all these users (case sensitive)?")
     remove = input("[B]lock / [U]nfollow / [M]ute / [E]xit: ")
     
     if (IsSilent==False):
