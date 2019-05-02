@@ -6,6 +6,7 @@ import configparser
 
 IN_DEBUG_MODE: bool = True
 
+@property
 def WhiteListUsers():
     return ['114742002', '123456789']
 

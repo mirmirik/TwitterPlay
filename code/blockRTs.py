@@ -43,7 +43,7 @@ IN_DEBUG_MODE: bool = False
 TODAY_FORMATTED = datetime.today().strftime('%Y%m%d')
 
 def BUM(tw, user, action):
-    if (user in twStart.WhiteListUsers()):
+    if (user in tw.WhiteListUsers):
         return
 
     if(action == "B"):
@@ -90,7 +90,7 @@ def blockRetweeters(TweetId, IsSilent):
         i = 0
 
         for usrId in f["ids"]:
-            color = Fore.RED if usrId in twStart.WhiteListUsers() else Fore.GREEN
+            color = Fore.RED if usrId in tw.WhiteListUsers else Fore.GREEN
             print(Style.BRIGHT + color + "{:25s} {:25s}".format(usrId, users[i]["screen_name"]))
             if(IN_DEBUG_MODE):
                 fn.write("{0}\t{1}".format(usrId, users[i]["screen_name"]) + "\n")
