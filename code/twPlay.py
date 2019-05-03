@@ -26,7 +26,7 @@ Geliştiriciler için kullanıcı ve hesap bilgilerinin kullanımı :
 
 import twStart
 from datetime import datetime
-import json
+import json, os
 
 IN_DEBUG_MODE: bool = False
 GET_FOLLOWERS: bool = False
@@ -36,10 +36,10 @@ TODAY_FORMATTED = datetime.today().strftime('%Y%m%d')
 def getTwitterData():
     activeCursor = -1
 
-    fileName = "../data/follower_" + TODAY_FORMATTED + ".txt" if GET_FOLLOWERS else "../data/following_" + TODAY_FORMATTED + ".txt"
+    fileName = "/../data/follower_" + TODAY_FORMATTED + ".txt" if GET_FOLLOWERS else "/../data/following_" + TODAY_FORMATTED + ".txt"
 
-    fl = open("../data/raw_data.json", "w+")
-    fn = open(fileName, "w+")
+    fl = open(twStart.DataFolder() + "/raw_data.json", "w+")
+    fn = open(twStart.DataFolder() + fileName, "w+")
 
     print("{:25s} {:25s} {:25s} {:25s} {:25s} {:25s} {:25s}".format(
         "Screen Name", "Name", "ID", "Follower-Friend", "Last Interaction", "Account Created", "Protected"))
@@ -122,4 +122,5 @@ def getTwitterData():
 
 
 if __name__ == "__main__": 
+    # print(twStart.ConfigFolder())
     getTwitterData()

@@ -68,7 +68,7 @@ def BUM(tw, user, action):
 def blockRetweeters(TweetId, IsSilent):
     activeCursor = -1
 
-    fileName = "data/RTBlocked_" + TODAY_FORMATTED + ".txt"
+    fileName = twStart.DataFolder() + "/RTBlocked_" + TODAY_FORMATTED + ".txt"
     if(IN_DEBUG_MODE):
         fn = open(fileName, "w+")
 
