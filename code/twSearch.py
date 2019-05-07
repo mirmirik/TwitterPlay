@@ -99,8 +99,7 @@ def search_twitter(searchparameter):
 
     print("{:25s} {:25s} {:25s}".format(
         "TwId", "Tweet", "Created"))
-    print(
-        "---------------------------------------------------------------------------------------------------------------------------------------------")
+    print("-" * 150)
 
     if IN_DEBUG_MODE:
         fn.write("{0}\t{1}\t{2}\t".format("TweetId",

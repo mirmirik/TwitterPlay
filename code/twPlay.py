@@ -36,14 +36,13 @@ TODAY_FORMATTED = datetime.today().strftime('%Y%m%d')
 def getTwitterData():
     activeCursor = -1
 
-    fileName = "/../data/follower_" + TODAY_FORMATTED + ".txt" if GET_FOLLOWERS else "/../data/following_" + TODAY_FORMATTED + ".txt"
+    fileName = "/follower_" + TODAY_FORMATTED + ".txt" if GET_FOLLOWERS else "/following_" + TODAY_FORMATTED + ".txt"
 
-    fl = open(twStart.DataFolder() + "/raw_data.json", "w+")
     fn = open(twStart.DataFolder() + fileName, "w+")
 
-    print("{:25s} {:25s} {:25s} {:25s} {:25s} {:25s} {:25s}".format(
-        "Screen Name", "Name", "ID", "Follower-Friend", "Last Interaction", "Account Created", "Protected"))
-    print("---------------------------------------------------------------------------------------------------------------------------------------------")
+    print("{:10s} {:25s} {:25s} {:25s} {:25s} {:25s} {:25s} {:25s}".format(
+        "Index", "Screen Name", "Name", "ID", "Follower-Friend", "Last Interaction", "Account Created", "Protected"))
+    print("-" * 190)
 
     fn.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}".format("screen_name",
                                                     "name",
@@ -56,6 +55,8 @@ def getTwitterData():
                                                     "protected") + "\n")
 
     tw = twStart.hitTwitter()
+
+    index = 1
 
     while activeCursor != 0:
 
@@ -92,15 +93,17 @@ def getTwitterData():
             except:
                 _follower_friend_ratio = usr["followers_count"]
 
-            print("{:25s} {:25s} {:25s} {:25s} {:25s} {:25s} {:25s}".format(
+            print("{:4d} {:25s} {:25s} {:25s} {:6.4f} {:25s} {:25s} {:25s}".format(
+                index,
                 usr["screen_name"], 
                 usr["name"], 
                 usr["id_str"], 
-                str(_follower_friend_ratio), 
+                _follower_friend_ratio, 
                 _lastInteraction, 
                 _accountCreated, 
                 str(usr["protected"])))
-            
+
+
             fn.write("{0}\t{1}\t{2}\t{3}\t{4}\t{5}\t{6}\t{7}\t{8}".format(
                 usr["screen_name"], 
                 usr["name"], 
@@ -112,15 +115,15 @@ def getTwitterData():
                 _accountCreated,
                 str(usr["protected"]) + "\n"))
 
+            index += 1
+
         activeCursor = f["next_cursor"]
         if IN_DEBUG_MODE:
-            jsDump = json.dumps(f, indent=4, sort_keys=False)
-            fl.write(jsDump)
-
-    fl.close()
+            with open(twStart.DataFolder() + "/raw_data.json", "w+") as fl:
+                jsDump = json.dumps(f, indent=4, sort_keys=False)
+                fl.write(jsDump)
     fn.close()
 
 
 if __name__ == "__main__": 
-    # print(twStart.ConfigFolder())
     getTwitterData()

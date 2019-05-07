@@ -43,6 +43,13 @@ IN_DEBUG_MODE: bool = False
 TODAY_FORMATTED = datetime.today().strftime('%Y%m%d')
 
 def BUM(tw, user, action):
+    """ Block, Unfollow or Mute function based on the parameters. If user is in the WhiteList, then returns without
+    doing anything.\n
+    tw:     Twitter object that will be used in API calls,\n
+    user:   UserId to be processed,\n
+    action: 'B' for blocking, 'U' to unfollow and 'M' for muting.
+    """
+
     if (user in tw.WhiteListUsers):
         return
 
@@ -73,7 +80,7 @@ def blockRetweeters(TweetId, IsSilent):
         fn = open(fileName, "w+")
 
     print("{:25s}{:25s}".format("User Id", "User Name"))
-    print("------------------------------------------------------------------------------------------------")
+    print("-" * 100)
 
     if(IN_DEBUG_MODE):
         fn.write("{0}{1}".format("User Id", "User Name") + "\n")
@@ -100,7 +107,7 @@ def blockRetweeters(TweetId, IsSilent):
     if(IN_DEBUG_MODE):
         fn.close()
 
-    print("------------------------------------------------------------------------------------------------")
+    print("-"*96)
     print("What do you want to do with all these users (case sensitive)?")
     remove = input("[B]lock / [U]nfollow / [M]ute / [E]xit: ")
     
