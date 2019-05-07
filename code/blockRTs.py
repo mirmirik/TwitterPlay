@@ -50,7 +50,7 @@ def BUM(tw, user, action):
     action: 'B' for blocking, 'U' to unfollow and 'M' for muting.
     """
 
-    if (user in tw.WhiteListUsers):
+    if (user in twStart.WHITE_LIST_USERS):
         return
 
     if(action == "B"):
@@ -75,7 +75,7 @@ def BUM(tw, user, action):
 def blockRetweeters(TweetId, IsSilent):
     activeCursor = -1
 
-    fileName = twStart.DataFolder() + "/RTBlocked_" + TODAY_FORMATTED + ".txt"
+    fileName = twStart.DATA_FOLDER + "/RTBlocked_" + TODAY_FORMATTED + ".txt"
     if(IN_DEBUG_MODE):
         fn = open(fileName, "w+")
 
@@ -97,7 +97,7 @@ def blockRetweeters(TweetId, IsSilent):
         i = 0
 
         for usrId in f["ids"]:
-            color = Fore.RED if usrId in tw.WhiteListUsers else Fore.GREEN
+            color = Fore.RED if usrId in twStart.WHITE_LIST_USERS else Fore.GREEN
             print(Style.BRIGHT + color + "{:25s} {:25s}".format(usrId, users[i]["screen_name"]))
             if(IN_DEBUG_MODE):
                 fn.write("{0}\t{1}".format(usrId, users[i]["screen_name"]) + "\n")

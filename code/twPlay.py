@@ -38,7 +38,7 @@ def getTwitterData():
 
     fileName = "/follower_" + TODAY_FORMATTED + ".txt" if GET_FOLLOWERS else "/following_" + TODAY_FORMATTED + ".txt"
 
-    fn = open(twStart.DataFolder() + fileName, "w+")
+    fn = open(twStart.DATA_FOLDER + fileName, "w+")
 
     print("{:10s} {:25s} {:25s} {:25s} {:25s} {:25s} {:25s} {:25s}".format(
         "Index", "Screen Name", "Name", "ID", "Follower-Friend", "Last Interaction", "Account Created", "Protected"))
@@ -119,11 +119,10 @@ def getTwitterData():
 
         activeCursor = f["next_cursor"]
         if IN_DEBUG_MODE:
-            with open(twStart.DataFolder() + "/raw_data.json", "w+") as fl:
+            with open(twStart.DATA_FOLDER + "/raw_data.json", "w+") as fl:
                 jsDump = json.dumps(f, indent=4, sort_keys=False)
                 fl.write(jsDump)
     fn.close()
-
 
 if __name__ == "__main__": 
     getTwitterData()
