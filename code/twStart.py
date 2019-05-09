@@ -1,6 +1,7 @@
 
 from twitter import Twitter, OAuth, oauth_dance, read_token_file
 import os
+from datetime import datetime
 import urllib.parse
 import configparser
 
@@ -44,3 +45,22 @@ def hitTwitter():
 def UserDetails(tw, uid):
     u = tw.users.show(user_id=uid)
     return u
+
+def FormatTwitterDate(twDate):
+    '''TW standart tarih formatı: Sat Aug 19 12:51:00 +0000 2019
+
+    - Dönüş (str):
+        20190819
+    '''
+
+    ret = datetime.today().strftime('%Y%m%d')
+    try:
+        tempDate = datetime.strptime(twDate, '%a %b %d %H:%M:%S %z %Y')
+        ret = "{2}{1}{0}".format(
+                        str(tempDate.day).zfill(2), 
+                        str(tempDate.month).zfill(2), 
+                        str(tempDate.year))
+    except:
+        pass
+
+    return ret

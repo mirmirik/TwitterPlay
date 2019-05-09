@@ -1,4 +1,5 @@
-[![Board Status](https://dev.azure.com/testeryou/10b2e0c2-0062-4680-b034-4362f128ab46/0eb5b43d-0494-46b9-a50e-cb7d9a661067/_apis/work/boardbadge/46c90235-e619-492e-97b0-2ba372d4fce9)](https://dev.azure.com/testeryou/10b2e0c2-0062-4680-b034-4362f128ab46/_boards/board/t/0eb5b43d-0494-46b9-a50e-cb7d9a661067/Microsoft.RequirementCategory)
+[![Board Status](https://dev.azure.com/testeryou/10b2e0c2-0062-4680-b034-4362f128ab46/0eb5b43d-0494-46b9-a50e-cb7d9a661067/_apis/work/boardbadge/46c90235-e619-492e-97b0-2ba372d4fce9?columnOptions=1)](https://dev.azure.com/testeryou/10b2e0c2-0062-4680-b034-4362f128ab46/_boards/board/t/0eb5b43d-0494-46b9-a50e-cb7d9a661067/Microsoft.RequirementCategory)
+
 # TwitterPlay
 
 Twitter API'sine bağlanıp, takipçi ve takip edilenler listesini almak için yazılmış deneme / sandbox kodu.
