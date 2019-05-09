@@ -64,28 +64,11 @@ def getTwitterData():
 
         _lastInteraction = ""
         for usr in f["users"]:
-            try:
+            try: 
                 if (usr["status"]):
-                    # status alınamıyorsa, kullanıcı "kilitli" hesaba sahiptir.
-                    # TW standart tarih formatı: Sat Aug 11 12:51:00 +0000 2018
-                    _tempDate = usr["status"]["created_at"]
-                    lastStatusDate = datetime.strptime(_tempDate, '%a %b %d %H:%M:%S %z %Y')
-                    _lastInteraction = "{2}{1}{0}".format(
-                        str(lastStatusDate.day).zfill(2), 
-                        str(lastStatusDate.month).zfill(2), 
-                        str(lastStatusDate.year))
-
-                    # En son 2019'dan önce tweet atmışları takipten çıkaralım.
-                    if (lastStatusDate.year < 2019):
-                        tw.friendships.destroy(user_id=usr["id_str"])
-                    
-                    dtObj = datetime.strptime(usr["created_at"], '%a %b %d %H:%M:%S %z %Y')
-                    _accountCreated = "{2}{1}{0}".format(
-                        str(dtObj.day).zfill(2), 
-                        str(dtObj.month).zfill(2), 
-                        str(dtObj.year))
-
-            except:
+                    _lastInteraction = twStart.FormatTwitterDate(usr["status"]["created_at"])
+                    _accountCreated = twStart.FormatTwitterDate(usr["created_at"])
+            except: # status alınamıyorsa, kullanıcı "kilitli" hesaba sahiptir.
                 _lastInteraction = "Not found"
 
             try:
