@@ -4,6 +4,7 @@ import os
 from datetime import datetime
 import urllib.parse
 import configparser
+import requests
 
 IN_DEBUG_MODE: bool = True
 
@@ -12,6 +13,15 @@ WHITE_LIST_USERS = ['114742002', '123456789']
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_FOLDER = BASE_DIR + "/data"
 CONFIG_FOLDER = BASE_DIR + "/config"
+
+def check_internet():
+    url='http://www.google.com/'
+    timeout=5
+    try:
+        _ = requests.get(url, timeout=timeout)
+        return True
+    except requests.ConnectionError:
+        return False
 
 def hitTwitter():
     cfg = configparser.ConfigParser()
@@ -33,13 +43,16 @@ def hitTwitter():
 
 
     oauth_token, oauth_secret = read_token_file(MY_TWITTER_CREDS)
+    if (check_internet()):
+        tw = Twitter(auth=OAuth(
+                        oauth_token, 
+                        oauth_secret, 
+                        CONSUMER_KEY, 
+                        CONSUMER_SECRET))
+    else:
+        raise urllib.error.URLError("No internet connection")
+        return
 
-    tw = Twitter(auth=OAuth(
-                    oauth_token, 
-                    oauth_secret, 
-                    CONSUMER_KEY, 
-                    CONSUMER_SECRET))
-    
     return tw
 
 def UserDetails(tw, uid):
