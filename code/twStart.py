@@ -58,7 +58,7 @@ def UserDetails(tw, uid):
     u = tw.users.show(user_id=uid)
     return u
 
-def FormatTwitterDate(twDate):
+def FormatTwitterDate(twDate, rettype='S'):
     '''TW standart tarih formatı: Sat Aug 19 12:51:00 +0000 2019
 
     - Dönüş (str):
@@ -75,4 +75,4 @@ def FormatTwitterDate(twDate):
     except:
         pass
 
-    return ret
+    return datetime.strptime(ret, '%Y%m%d') if rettype == 'D' else ret
