@@ -26,7 +26,7 @@ from datetime import datetime, date
 TODAY_FORMATTED = datetime.today().strftime('%Y%m%d')
 
 rules = { 'LAST_STATUS_UPDATE': 6, 
-            'ACCOUNT_CREATED_YEAR': date.today().year,
+            'ACCOUNT_CREATED_YEAR': 2010, #date.today().year,
             'ACCOUNT_CREATED_MONTH': date.today().month }
 
 def removeFriend():
@@ -49,14 +49,14 @@ def removeFriend():
                 if (usr["status"]):
                     lastInteraction = twStart.FormatTwitterDate(usr["status"]["created_at"])
                     accountCreated = twStart.FormatTwitterDate(usr["created_at"])
-                    print(accountCreated)
                     # En son 2019'dan önce tweet atmışları takipten çıkaralım.
                     if (int(accountCreated[:4]) < rules['ACCOUNT_CREATED_YEAR']):
                         removeableUsers = {index: {}}
                         removeableUsers[index]["user_id"] = usr["id_str"]
+                        removeableUsers[index]["user_name"] = usr["name"]
                         removeableUsers[index]["account_created"] = accountCreated
                         removeableUsers[index]["last_interaction"] = lastInteraction
-                        removeableUsers[index]["remove_reason"] = "Last status date is too old."
+                        removeableUsers[index]["remove_reason"] = "Last interaction date is too old."
                         print(removeableUsers)
                         index += 1
                     #     tw.friendships.destroy(user_id=usr["id_str"])
