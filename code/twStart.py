@@ -15,7 +15,7 @@ DATA_FOLDER = BASE_DIR + "/data"
 CONFIG_FOLDER = BASE_DIR + "/config"
 
 def check_internet():
-    url='http://www.google.com/'
+    url='http://api.twitter.com/'
     timeout=5
     try:
         _ = requests.get(url, timeout=timeout)
@@ -51,7 +51,6 @@ def hitTwitter():
                         CONSUMER_SECRET))
     else:
         raise urllib.error.URLError("No internet connection")
-        return
 
     return tw
 
