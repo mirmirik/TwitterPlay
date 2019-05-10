@@ -15,7 +15,7 @@ DATA_FOLDER = BASE_DIR + "/data"
 CONFIG_FOLDER = BASE_DIR + "/config"
 
 def check_internet():
-    url='http://www.google.com/'
+    url='http://api.twitter.com/'
     timeout=5
     try:
         _ = requests.get(url, timeout=timeout)
@@ -51,7 +51,6 @@ def hitTwitter():
                         CONSUMER_SECRET))
     else:
         raise urllib.error.URLError("No internet connection")
-        return
 
     return tw
 
@@ -59,7 +58,7 @@ def UserDetails(tw, uid):
     u = tw.users.show(user_id=uid)
     return u
 
-def FormatTwitterDate(twDate):
+def FormatTwitterDate(twDate, rettype='S'):
     '''TW standart tarih formatı: Sat Aug 19 12:51:00 +0000 2019
 
     - Dönüş (str):
@@ -76,4 +75,4 @@ def FormatTwitterDate(twDate):
     except:
         pass
 
-    return ret
+    return datetime.strptime(ret, '%Y%m%d') if rettype == 'D' else ret
