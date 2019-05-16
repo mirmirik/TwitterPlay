@@ -1,5 +1,5 @@
-[![Board Status](https://dev.azure.com/testeryou/10b2e0c2-0062-4680-b034-4362f128ab46/0eb5b43d-0494-46b9-a50e-cb7d9a661067/_apis/work/boardbadge/46c90235-e619-492e-97b0-2ba372d4fce9?columnOptions=1)](https://dev.azure.com/testeryou/10b2e0c2-0062-4680-b034-4362f128ab46/_boards/board/t/0eb5b43d-0494-46b9-a50e-cb7d9a661067/Microsoft.RequirementCategory)
-
+[![Board Status](https://dev.azure.com/testeryou/10b2e0c2-0062-4680-b034-4362f128ab46/0eb5b43d-0494-46b9-a50e-cb7d9a661067/_apis/work/boardbadge/46c90235-e619-492e-97b0-2ba372d4fce9?columnOptions=1)](https://dev.azure.com/testeryou/10b2e0c2-0062-4680-b034-4362f128ab46/_boards/board/t/0eb5b43d-0494-46b9-a50e-cb7d9a661067/Microsoft.RequirementCategory) ![GitHub](https://img.shields.io/github/license/mirmirik/TwitterPlay.svg)
+![GitHub top language](https://img.shields.io/github/languages/top/mirmirik/TwitterPlay.svg) ![GitHub last commit](https://img.shields.io/github/last-commit/mirmirik/TwitterPlay.svg)
 # TwitterPlay
 
 Twitter API'sine bağlanıp, takipçi ve takip edilenler listesini almak için yazılmış deneme / sandbox kodu.
