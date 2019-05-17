@@ -2,21 +2,53 @@
 ![GitHub top language](https://img.shields.io/github/languages/top/mirmirik/TwitterPlay.svg) ![GitHub last commit](https://img.shields.io/github/last-commit/mirmirik/TwitterPlay.svg)
 # TwitterPlay
 
-Twitter API'sine bağlanıp, takipçi ve takip edilenler listesini almak için yazılmış deneme / sandbox kodu.
-myTwitter.cfg dosyası içine ilgili değerleri ekleyip, komut satırından `python <ilgili dosya>` yazarak çalıştırılabilir.
-Text dosya çıktıları, kodun çalıştığı dizin altındaki "DATA" dizini içine, günün tarihi ile eklenir.
+Twitter API'sine bağlanıp, metodları test etmek için yazılmış deneme / sandbox kodları.
+myTwitter.cfg dosyası içine ilgili değerleri ekleyip, komut satırından `python <ilgili dosya> [parametreler]` yazarak çalıştırılabilir.
+Eğer kod içinde bir çıktı varsa, proje dizini altındaki "DATA" dizini içine, günün tarihi ile eklenir.
 
-Konfigürasyon dosyası değerleri:
+## Konfigürasyon dosyası değerleri:
     
-    [auth]
-    ACCOUNT = <bilgilerine erişilecek size ait hesap adı
-    CONSUMER_KEY = <Twitter Development / APPS kısmından alınacak olan CONSUMER KEY>
-    CONSUMER_SECRET = <Twitter Development / APPS kısmından alınacak olan CONSUMER SECRET>
+`./config/**twitter.cfg**` dosyasını, `./config/**myTwitter.cfg**` olarak değiştirip kullanabilirsiniz. Dosya içine yazılacak değerler aşağıdaki gibidir:
 
-IN_DEBUG_MODE = True ise,
-    tüm ilgili kullanıcı nesnesine ait bilgiler twPlay.py çalıştırıldığında "raw_data.json" isimli dosyaya da JSON formatında yazılır. Buradaki alanlar incelenip ihtiyca göre kullanıcılara ait farklı bilgilere de erişim sağlanabilir.
+```python
+[auth]
+ACCOUNT = <bilgilerine erişilecek size ait hesap adı
+CONSUMER_KEY = <Twitter Development / APPS kısmından alınacak olan CONSUMER KEY>
+CONSUMER_SECRET = <Twitter Development / APPS kısmından alınacak olan CONSUMER SECRET>
+```
+## Yapılan geliştirmeler:
 
-Çıktı dosyaları:
+Yazılan kodların tamamı `./src/`dizini altındadır.
+
+**twStart.py**
+Twitter API'sine konfigurasyon değerlerine göre bağlanan ve bir Twitter nesnesi döndüren kütüphane modulü. Yardımcı metodlar da bu kod içindedir.
+
+```python
+import twStart
+tw = twStart.hitTwitter()
+```
+kodu ile çağrılır.
+
+**blockRTs.py**
+Twitter API'sine bağlanıp, belirli bir tweet'i RT edenleri takipten çıkarmak ya da bloklamak için yazılmış deneme / sandbox kodu.
+
+**muteWords.py**
+Twitter API'sine bağlanıp, parametre olarak verilen text dosyasının içindeki kelimeleri, MUTED ya da UNMUTED durumuna geçiren deneme / sandbox kodu. 
+__İLGİLİ TWITTER METODU OLMADIĞI İÇİN OBSOLETE DURUMDADIR__
+
+**removeFollowed.py**
+Twitter API'sine bağlanıp, takip edilenleri belirli kurallar çerçevesinde takipten çıkarmak için yazılmış deneme / sandbox kodu. İçindeki kurallar şu anda sadece en son tweet atılma tarihi ile, hesabın yaratılma tarihini kontrol etmektedir.
+
+**twPlay.py**
+Twitter API'sine bağlanıp, authenticate olmuş kullanıcının takipçi ve takip edilenler listesini almak için yazılmış deneme kodu.
+
+**twSearch.py**
+Twitter API'sine bağlanıp, verilen komut satırı parametrelerine göre tweetler içinde arama yapmak için yazılmış deneme / sandbox kodu.
+
+**twStats.py**
+UNDER CONSTRUCTION :)
+
+## Çıktı dosyaları:
 
     followers_YYYYMMDD.txt  -> Takip edenler    (twPlay.py)
     following_YYYYMMDD.txt  -> Takip edilenler  (twPlay.py)
@@ -25,7 +57,7 @@ IN_DEBUG_MODE = True ise,
     Sonraki sürümlerde planlanan
     myStats_YYYYMMDD.txt    -> İstatistikler    (twMyStats.py) 
 
-Python öğrenim için kaynak:
+## Kaynaklar:
 
 http://www.veridefteri.com
 
@@ -43,9 +75,9 @@ https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users
 
 pyMyStats kodunda kullanılan API Reference (friendship-lookup, folllowers-ids, friends-ids):
 
-    https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/api-reference/get-friends-ids
-    https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/api-reference/get-followers-ids
-    https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/api-reference/get-friendships-lookup
+https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/api-reference/get-friends-ids
+https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/api-reference/get-followers-ids
+https://developer.twitter.com/en/docs/accounts-and-users/follow-search-get-users/api-reference/get-friendships-lookup
 
 
 Author: Tolga MIRMIRIK (@mirmirik)
