@@ -2,7 +2,7 @@
 Author: Tolga MIRMIRIK (@mirmirik)
 
 Twitter API'sine bağlanıp, takip edilenleri belirli kurallar çerçevesinde takipten çıkarmak için yazılmış deneme / sandbox kodu.
-myTwitter.cfg dosyası içine ilgili değerleri ekleyip, komut satırından "python twPlay.py" yazarak çalıştırılabilir.
+myTwitter.cfg dosyası içine ilgili değerleri ekleyip, komut satırından "python removeFollowed.py" komutu ile çalıştırılabilir.
 
 Konfigürasyon dosyası değerleri:
     [auth]
@@ -25,7 +25,6 @@ from datetime import datetime, date
 import pprint
 import json
 from dateutil import relativedelta
-
 
 TODAY_FORMATTED = datetime.today().strftime('%Y%m%d')
 
@@ -73,12 +72,12 @@ def removeFriend():
                         removeableUsers[removeFriendCount]["user_name"] = usr["name"]
                         removeableUsers[removeFriendCount]["account_created"] = accountCreatedJSON
                         removeableUsers[removeFriendCount]["last_interaction"] = lastInteractionJSON
-                        if(lastInteraction_Rule):
-                            removeableUsers[removeFriendCount]["remove_reason"] = "Last interaction date is too old."
+                        if lastInteraction_Rule:
+                            removeableUsers[removeFriendCount]["remove_reason"] = "Last interaction date is too old. (" + lastInteractionJSON + ")"
                         elif accountCreation_Rule:
-                            removeableUsers[removeFriendCount]["remove_reason"] = "Account is too young."
+                            removeableUsers[removeFriendCount]["remove_reason"] = "Account is too young. (" + accountCreatedJSON + ")"
                         
-            except: # status alınamıyorsa, kullanıcı "kilitli" hesaba sahiptir.
+            except:
                 lastInteraction = "Not found"
 
         activeCursor = f["next_cursor"]
@@ -89,7 +88,7 @@ def removeFriend():
     # print(jsDump)
 
     print("{:10s} {:25s} {:35s}".format("Index", "User Name", "Reason"))
-    print("-" * 90)
+    print("-" * 96)
 
     for i in range(1, removeFriendCount):
         print("{:10d} {:25s} {:35s}".format(i, removeableUsers[i]["user_name"], removeableUsers[i]["remove_reason"]))
@@ -105,10 +104,10 @@ def removeFriend():
             # TODO: Kulanıcı takipten çıkarma kodu açılmalı
             # İşler hale gelmesi için aşağıdaki satırı açmalısınız
             # tw.friendships.destroy(user_id=removeableUsers[i]["user_id"])
-        print ("All done! Happy tweeting :) ")
+        print ("All done! Happy tweeting :)\n")
         return
 
-    print("Nothing to do here!")
+    print("Nothing to do here! Go on.\n")
 
 if __name__ == "__main__": 
     removeFriend()
