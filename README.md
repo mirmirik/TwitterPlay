@@ -8,7 +8,7 @@ Eğer kod içinde bir çıktı varsa, proje dizini altındaki "DATA" dizini içi
 
 ## Konfigürasyon dosyası değerleri:
     
-`./config/**twitter.cfg**` dosyasını, `./config/**myTwitter.cfg**` olarak değiştirip kullanabilirsiniz. Dosya içine yazılacak değerler aşağıdaki gibidir:
+`./config/twitter.cfg` dosyasını, `./config/myTwitter.cfg` olarak değiştirip kullanabilirsiniz. Dosya içine yazılacak değerler aşağıdaki gibidir:
 
 ```python
 [auth]
