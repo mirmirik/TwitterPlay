@@ -9,6 +9,7 @@ import requests
 IN_DEBUG_MODE: bool = True
 
 WHITE_LIST_USERS = ['114742002', '123456789']
+BLACK_LIST_USERS = ['123456789']
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_FOLDER = BASE_DIR + "/data"
