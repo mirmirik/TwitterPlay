@@ -126,7 +126,7 @@ def listUsers(userAction, IsSilent):
     print("Nothing to do here!")
 
 def main():
-    parser = argparse.ArgumentParser(description="Blocks, mutes or unfollows specific Tweet's all retweeters.")
+    parser = argparse.ArgumentParser(description="UnBlocks or unmutes previously blocked / muted users.")
     parser.add_argument("-t",
                         dest="ACTION",
                         help="B: Unblock, M: Unmute")
