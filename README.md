@@ -58,11 +58,17 @@ UNDER CONSTRUCTION :)
 
 Twitter API'sine bağlanıp, blokladığınız ve MUTE yaptığınız kullanıcıları listeleyen ve bunları geri almaya yarayan(UnBlock / UnMute) deneme / sandbox kodu.
 
+**twThanos.py**
+
+Twitter API'sine bağlanıp, takip edilen kullanıcılardan %50'sini takipten çıkarmak ya da bloklamak için yazılmış deneme / sandbox kodu.
+
 ## Çıktı dosyaları:
 
-    followers_YYYYMMDD.txt  -> Takip edenler    (twPlay.py)
-    following_YYYYMMDD.txt  -> Takip edilenler  (twPlay.py)
-    RTBlocked_YYYYMMDD.txt  -> Bloklanmaya aday olanlar  (blockRTs.py)
+    followers_YYYYMMDD.txt          -> Takip edenler (twPlay.py)
+    following_YYYYMMDD.txt          -> Takip edilenler (twPlay.py)
+    RTBlocked_YYYYMMDD.txt          -> Bloklanmaya aday olanlar (blockRTs.py)
+    twThanosDestroyed_YYYYMMDD.txt  -> %50'si block/mute yapılmış kullanıcıların listesi (twThanos.py)
+    undoThanos_(M/B)_YYYYMMDD.txt   -> Unblok yapılmış / unmute edilmiş kullanıcıların listesi (undoThanos.py)
 
     Sonraki sürümlerde planlanan
     myStats_YYYYMMDD.txt    -> İstatistikler    (twMyStats.py) 
