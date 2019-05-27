@@ -29,9 +29,7 @@ import os
 from colorama import Fore, Back, Style, init
 
 def muteWords(FileName, Unmute):
-
-    message = "Kelimeler MUTE listesin" 
-    message += "den çıkarılacak!" if Unmute else "e eklenecek!"
+    message = "Words will be removed from MUTE list!" if Unmute else "Words will be added to MUTE list!"
 
     color = Fore.RED if Unmute else Fore.GREEN
 
@@ -44,9 +42,9 @@ def muteWords(FileName, Unmute):
             wordsToProcess = f.readlines()
             for word in wordsToProcess:
                 print(Style.BRIGHT + color + "\t" + word.replace("\n",""))
-            print(message + "\nEmin misiniz?")
+            print(message + "\nAre you sure?")
 
-            if (input("[E]vet / [H]ayır: ") == "E"):
+            if (input("[Y]es / [N]o: ") == "Y"):
                 for word in wordsToProcess:
                     ''' 
                     Bir gün umarım ki "muted keywords" listesine kelime eklemek ya da çıkarmak için bir method açılır Twitter API için :( 
@@ -60,25 +58,25 @@ def muteWords(FileName, Unmute):
                     '''
                     print(Style.BRIGHT + color + "\t" +word.replace("\n","") + " ✅....")
 
-                print("Kelimelerin durumları, listede güncellendi! Çıkarılması gerekenler çıktı, eklenmesi gerekenler eklendi. Her şey olması gerektiği gibi...")
+                print("Words have been processed. MUTE list has been updated!")
         except:
-            print ("Bir şeyler çok yanlış gitti ama ne oldu anlayamadım. Sonraki commit'te detaylı bilgi vereceğim... (umarım)")
+            print ("Something is wrong...")
 
 def main():
-    parser = argparse.ArgumentParser(description="Parametre olarak verilen dosyadaki kelimeleri, Twitter hesabınızda MUTE/UNMUTE etmeye yarar.")
+    parser = argparse.ArgumentParser(description="Adds or removes words in given text file to your MUTE list settings.")
     parser.add_argument("-f",
                         dest="FILE_NAME",
-                        help="İçinde, her bir satırda MUTE/UNMUTE edilecek kelimelerin bulunduğu dosya ismi. kelimeler CR/LF ile ayrılmalıldır.")
+                        help="File containing words to be processed.")
     parser.add_argument("-u",
                         dest="UNMUTE",
-                        help="Eğer True ise, dosya içindeki kelimeler MUTE statüsünden kaldırılır. Varsayılan olarak False kullanılmaktadır.",
+                        help="If TRUE, then the words will be removed from the list, otherwise words will be added. Default is FALSE",
                         default=False)
 
     args = parser.parse_args()
     if args.FILE_NAME:
         muteWords(args.FILE_NAME, args.UNMUTE)
     else:
-        print("\nLütfen işlem yapılacak kelimelerin bulunduğu dosyayı belirtmek için -f parametresini kullanınız.\n")
+        print("\nPlease use -f parameter.\n")
 
 if __name__ == "__main__":
     init(autoreset=True)
