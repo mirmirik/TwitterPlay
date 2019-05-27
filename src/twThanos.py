@@ -58,20 +58,17 @@ def BUM(tw, user, userId, action):
 
     if(action == "B"):
         print("Blocked: {0}".format(user))
-        # TODO: Kulanıcı bloklama kodu açılmalı
-        # İşler hale gelmesi için aşağıdaki satırı açmalısınız
+        # TODO: Uncomment the code below
         # tw.blocks.create(user_id=userId, skip_status=1, include_entities=False)
         return
     elif (action == "M"):
         print("Muted: {0}".format(user))
-        # TODO: Kulanıcıyı sessize alma kodu açılmalı
-        # İşler hale gelmesi için aşağıdaki satırı açmalısınız
+        # TODO: Uncomment the code below
         # tw.users.mutes(user_id=userId)
         return
     elif(action == "U"):
         print("Unfollowed: {0}".format(user))
-        # TODO: Kulanıcı takipten çıkarma kodu açılmalı
-        # İşler hale gelmesi için aşağıdaki satırı açmalısınız
+        # TODO: Uncomment the code below
         # tw.friendships.destroy(user_id=userId)
     return
 
@@ -121,8 +118,7 @@ def destroyHalfPercent(IsSilent):
     sRandom = random.SystemRandom()
     selectedUsers = sRandom.choices(allUserIds, k=halfOfTheUsers)
 
-    modulus = halfOfTheUsers % maxArraySize
-    fixed = halfOfTheUsers // maxArraySize
+    modulus, fixed = twStart.splitArray(halfOfTheUsers, 100)
 
     for x in range(fixed):
         usersToBeDestroyed, unluckyGuysCount = listUnluckyFriends(tw, selectedUsers, (x*maxArraySize), (x*maxArraySize+maxArraySize), unluckyGuysCount, usersToBeDestroyed)

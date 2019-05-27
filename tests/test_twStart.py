@@ -22,3 +22,13 @@ def test_authorIsInWhiteList():
 
 def test_TwitterIsOnline():
     assert twLib.check_internet(), "Cannot access to Twitter API"
+
+def test_arraySplit_for_102_10():
+        modulus, loop = twLib.splitArray(102, 10)
+        assert modulus == 2, "Modulus is not correctly set"
+        assert loop == 10, "Loop count is not correctly set"
+
+def test_arraySplit_for_17_4():
+        modulus, loop = twLib.splitArray(17, 4)
+        assert modulus == 1, "Modulus is not correctly set"
+        assert loop == 4, "Loop count is not correctly set"

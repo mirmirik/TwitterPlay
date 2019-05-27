@@ -38,6 +38,9 @@ import twStart
 from datetime import datetime
 import argparse
 from colorama import Fore, Back, Style, init
+import gettext 
+
+_ = gettext.gettext
 
 IN_DEBUG_MODE: bool = False
 TODAY_FORMATTED = datetime.today().strftime('%Y%m%d')
@@ -54,21 +57,18 @@ def BUM(tw, user, action):
         return
 
     if(action == "B"):
-        print("Blocked: {0}".format(user))
-        # TODO: Kulanıcı bloklama kodu açılmalı
-        # İşler hale gelmesi için aşağıdaki satırı açmalısınız
+        print(_("Blocked: {0}").format(user))
+        # TODO: Uncomment the code below
         # tw.blocks.create(user_id=usrId, skip_status=1, include_entities=False)
         return
     elif (action == "M"):
-        print("Muted: {0}".format(user))
-        # TODO: Kulanıcıyı sessize alma kodu açılmalı
-        # İşler hale gelmesi için aşağıdaki satırı açmalısınız
+        print(_("Muted: {0}").format(user))
+        # TODO: Uncomment the code below
         # tw.users.mutes(user_id=usrId)
         return
     elif(action == "U"):
-        print("Unfollowed: {0}".format(user))
-        # TODO: Kulanıcı takipten çıkarma kodu açılmalı
-        # İşler hale gelmesi için aşağıdaki satırı açmalısınız
+        print(_("Unfollowed: {0}").format(user))
+        # TODO: Uncomment the code below
         # tw.friendships.destroy(user_id=usrId)
     return
 

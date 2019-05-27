@@ -15,6 +15,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_FOLDER = BASE_DIR + "/data"
 CONFIG_FOLDER = BASE_DIR + "/config"
 
+def splitArray(arraySize, maxRequest):
+    modulusCalculation = arraySize % maxRequest
+    fixedLoop = arraySize // maxRequest
+
+    return modulusCalculation, fixedLoop
+
+
 def check_internet():
     url='http://api.twitter.com/'
     timeout=5

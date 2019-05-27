@@ -101,8 +101,7 @@ def removeFriend():
     if(RUsure=="Y"):
         for i in range(1, removeFriendCount):
             print("Unfollowed: {0}".format(removeableUsers[i]["user_name"]))
-            # TODO: Kulanıcı takipten çıkarma kodu açılmalı
-            # İşler hale gelmesi için aşağıdaki satırı açmalısınız
+            # TODO: Uncomment the code below
             # tw.friendships.destroy(user_id=removeableUsers[i]["user_id"])
         print ("All done! Happy tweeting :)\n")
         return
