@@ -45,33 +45,6 @@ import pprint
 IN_DEBUG_MODE: bool = True
 TODAY_FORMATTED = datetime.today().strftime('%Y%m%d')
 
-def BUM(tw, user, userId, action):
-    """ Block, Unfollow or Mute function based on the parameters. If user is in the WhiteList, then returns without
-    doing anything.\n
-    tw:     Twitter object that will be used in API calls,\n
-    user:   UserId to be processed,\n
-    action: 'B' for blocking, 'U' to unfollow and 'M' for muting.
-    """
-
-    if (user in twStart.WHITE_LIST_USERS):
-        return
-
-    if(action == "B"):
-        print("Blocked: {0}".format(user))
-        # TODO: Uncomment the code below
-        # tw.blocks.create(user_id=userId, skip_status=1, include_entities=False)
-        return
-    elif (action == "M"):
-        print("Muted: {0}".format(user))
-        # TODO: Uncomment the code below
-        # tw.users.mutes(user_id=userId)
-        return
-    elif(action == "U"):
-        print("Unfollowed: {0}".format(user))
-        # TODO: Uncomment the code below
-        # tw.friendships.destroy(user_id=userId)
-    return
-
 def listUnluckyFriends(tw, selectedOnes, sliceStart, sliceEnd, unluckyGuysCount, usersToBeDestroyed):
     newArray = selectedOnes[sliceStart:sliceEnd]
     userIds = ""
@@ -118,7 +91,7 @@ def destroyHalfPercent(IsSilent):
     sRandom = random.SystemRandom()
     selectedUsers = sRandom.choices(allUserIds, k=halfOfTheUsers)
 
-    modulus, fixed = twStart.splitArray(halfOfTheUsers, 100)
+    modulus, fixed = twStart.splitArray(halfOfTheUsers, maxArraySize)
 
     for x in range(fixed):
         usersToBeDestroyed, unluckyGuysCount = listUnluckyFriends(tw, selectedUsers, (x*maxArraySize), (x*maxArraySize+maxArraySize), unluckyGuysCount, usersToBeDestroyed)
@@ -142,7 +115,7 @@ def destroyHalfPercent(IsSilent):
 
     if(RUsure=="Y"):
         for i in range(1, unluckyGuysCount):
-            BUM(tw, usersToBeDestroyed[i]["user_name"], usersToBeDestroyed[i]["user_id"], usersToBeDestroyed[i]["action"])
+            twStart.BUM(tw, usersToBeDestroyed[i]["user_name"], usersToBeDestroyed[i]["user_id"], usersToBeDestroyed[i]["action"])
         print ("All done! Happy tweeting :) ")
         return
 
