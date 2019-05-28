@@ -108,37 +108,37 @@ def blockRetweeters(TweetId, IsSilent):
         fn.close()
 
     print("-"*96)
-    print("What do you want to do with all these users (case sensitive)?")
-    remove = input("[B]lock / [U]nfollow / [M]ute / [E]xit: ")
+    print(_("What do you want to do with all these users (case sensitive)?"))
+    remove = input(_("[B]lock / [U]nfollow / [M]ute / [E]xit: "))
     
     if (IsSilent==False):
-        RUsure = input("Are you sure? [Y]es / [N]o: ")
+        RUsure = input(_("Are you sure? [Y]es / [N]o: "))
     else:
         RUsure = "Y"
 
     if(RUsure=="Y"):
         for usrId in f["ids"]:
             BUM(tw, usrId, remove)
-        print ("All done! Happy tweeting :) ")
+        print (_("All done! Happy tweeting :) "))
         return
 
-    print("Nothing to do here!")
+    print(_("Nothing to do here!"))
 
 def main():
-    parser = argparse.ArgumentParser(description="Blocks, mutes or unfollows specific Tweet's all retweeters.")
+    parser = argparse.ArgumentParser(description=_("Blocks, mutes or unfollows specific Tweet's all retweeters."))
     parser.add_argument("-t",
                         dest="TWEET_ID",
-                        help="Tweet Id to be used to define target users. All users those retweeted this one will be removed")
+                        help=_("Tweet Id to be used to define target users. All users those retweeted this one will be removed"))
     parser.add_argument("-s",
                         dest="SILENT",
-                        help="If used, there won't be a confirmation for removal action.",
+                        help=_("If used, there won't be a confirmation for removal action."),
                         default=False)
 
     args = parser.parse_args()
     if args.TWEET_ID:
         blockRetweeters(args.TWEET_ID, args.SILENT)
     else:
-        print("Please use -t parameter to define TweetId")
+        print(_("Please use -t parameter to define TweetId"))
 
 if __name__ == "__main__":
     init(autoreset=True)

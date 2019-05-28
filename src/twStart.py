@@ -18,9 +18,7 @@ CONFIG_FOLDER = BASE_DIR + "/config"
 def splitArray(arraySize, maxRequest):
     modulusCalculation = arraySize % maxRequest
     fixedLoop = arraySize // maxRequest
-
     return modulusCalculation, fixedLoop
-
 
 def check_internet():
     url='http://api.twitter.com/'
@@ -65,6 +63,34 @@ def hitTwitter():
 def UserDetails(tw, uid):
     u = tw.users.show(user_id=uid)
     return u
+
+def BUM(tw, user, userId, action):
+    """ Block, Unfollow or Mute function based on the parameters. If user is in the WhiteList, then returns without
+    doing anything.\n
+    tw:     Twitter object that will be used in API calls,\n
+    user:   UserId to be processed,\n
+    action: 'B' for blocking, 'U' to unfollow and 'M' for muting.
+    """
+
+    if (user in WHITE_LIST_USERS):
+        return
+
+    if(action == "B"):
+        print("Blocked: {0}".format(user))
+        # TODO: Uncomment the code below
+        # tw.blocks.create(user_id=userId, skip_status=1, include_entities=False)
+        return
+    elif (action == "M"):
+        print("Muted: {0}".format(user))
+        # TODO: Uncomment the code below
+        # tw.users.mutes(user_id=userId)
+        return
+    elif(action == "U"):
+        print("Unfollowed: {0}".format(user))
+        # TODO: Uncomment the code below
+        # tw.friendships.destroy(user_id=userId)
+    return
+
 
 def FormatTwitterDate(twDate, rettype='S'):
     '''TW standart tarih formatı: Sat Aug 19 12:51:00 +0000 2019
