@@ -57,7 +57,7 @@ def unfollowUsersFriends(UserName, IsSilent):
     myFriends = []
 
     while activeCursor != 0:
-        f = tw.friends.ids(cursor=activeCursor, count=2048, stringify_ids=True, screen_name=UserName)
+        f = tw.followers.ids(cursor=activeCursor, count=2048, stringify_ids=True, screen_name=UserName)
         nemesisFriends += f["ids"]
         activeCursor = f["next_cursor"]
     
