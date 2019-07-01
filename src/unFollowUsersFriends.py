@@ -84,7 +84,11 @@ def unfollowUsersFriends(UserName, IsSilent):
     users = tw.users.lookup(user_id=userIds)
 
     for user in users:
-        color = Fore.RED if user["id_str"] in twStart.WHITE_LIST_USERS else Fore.GREEN
+        if user["id_str"] in twStart.WHITE_LIST_USERS:
+            # twStart.sendMessage(tw, user["id_str"], "WUT?")
+            color = Fore.RED  
+        else:
+            Fore.GREEN
         print(color + "{:25s} {:25s}".format(user["id_str"], user["screen_name"]))
         if(IN_DEBUG_MODE):
             fn.write("{0}\t{1}".format(user["id_str"], user["screen_name"]) + "\n")
