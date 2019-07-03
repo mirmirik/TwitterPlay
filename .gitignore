@@ -1,6 +1,7 @@
 # Local files
 myTwitter.cfg
 data/*.*
+helpers/*.*
 .idea/*.*
 .idea/
 .vscode/

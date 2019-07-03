@@ -91,6 +91,17 @@ def BUM(tw, user, userId, action):
         # tw.friendships.destroy(user_id=userId)
     return
 
+def sendMessage(tw, toUser, sendThisMessage):
+    tw.direct_messages.events.new(
+    _json={
+        "event": {
+            "type": "message_create",
+            "message_create": {
+                "target": {
+                    "recipient_id": toUser},
+                "message_data": {
+                    "text": sendThisMessage}}}})
+
 
 def FormatTwitterDate(twDate, rettype='S'):
     '''TW standart tarih formatı: Sat Aug 19 12:51:00 +0000 2019
